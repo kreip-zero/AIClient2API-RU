@@ -8,17 +8,23 @@
 
 <div align="center">
 
-[![GitHub stars](https://img.shields.io/github/stars/kreip-zero/AIClient2API-RU.svg?style=flat&label=Star)](https://github.com/kreip-zero/AIClient2API-RU/stargazers)
+[![Совместимость](https://img.shields.io/badge/AIClient2API-v3.3.8-brightgreen.svg)](https://github.com/justlovemaki/AIClient-2-API)
+[![GitHub stars](https://img.shields.io/github/stars/kreip-zero/AIClient2API-RU.svg?style=flat&label=Star)](https://github.com/kreip-zero/AIClient-2-API-RU/stargazers)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 </div>
 
 ---
 
+> [!NOTE]  
+> **Совместимость версий**: Данный русификатор создан и протестирован **строго для AIClient2API версии v3.3.8**. В будущих обновлениях оригинальной программы текст может измениться.
+
+---
+
 ## 🚀 Быстрая Установка (Рекомендуется)
 
 Самый быстрый способ установить русификатор — использовать автоматические команды. **Не нужно ничего скачивать вручную!**
-Просто откройте терминал (или PowerShell) **внутри папки с установленной программой AIClient2API** и выполните одну команду:
+Просто откройте PowerShell (или cmd) **внутри папки с установленной программой AIClient2API** и выполните одну команду:
 
 ### Для Windows (PowerShell)
 ```powershell
@@ -42,7 +48,7 @@ curl -sL https://raw.githubusercontent.com/kreip-zero/AIClient2API-RU/main/insta
 <details>
 <summary><b>Способ 2: Использование Автоустановщика (.exe) для Windows</b></summary>
 
-1. Перейдите в раздел **Releases** справа на этой странице.
+1. Перейдите в раздел [**Releases**](https://github.com/kreip-zero/AIClient2API-RU/releases) справа на этой странице.
 2. Скачайте файл **`AIClient2API_RU_Windows_Installer.exe`**.
 3. Запустите его. Установщик автоматически попытается найти папку с вашей программой. Если он её не найдет, просто нажмите "Обзор..." и выберите корневую папку `AIClient2API`.
 4. Нажмите "Установить".
@@ -55,7 +61,7 @@ curl -sL https://raw.githubusercontent.com/kreip-zero/AIClient2API-RU/main/insta
 2. Откройте терминал в папке с распакованным архивом.
 3. Выполните команду запуска мастера установки:
    ```bash
-   bash AIClient2API_Linux_Mac_Installer.sh
+   bash AIClient2API_RU_Linux_Mac_Installer.sh
    ```
 4. Скрипт сам найдет программу или попросит вас ввести путь до папки.
 </details>
