@@ -2361,7 +2361,7 @@ const translations = {
         "nav.plugins": "Плагины",
         "nav.models": "Список моделей",
         "nav.customModels": "Кастомные модели",
-        "nav.playground": "Песочница (Тест моделей) (Тест моделей)",
+        "nav.playground": "Песочница (Тест моделей)",
         "sponsors.title": "💎 Спонсоры проекта",
         "sponsors.subtitle": "*Спонсоры отсортированы по порядку поддержки. Рекомендуем к использованию.*",
         "sponsors.becomeTitle": "Стать спонсором",
@@ -3590,7 +3590,7 @@ const translations = {
 };
 
 // 当前语言
-let currentLanguage = localStorage.getItem('language') || 'zh-CN';
+let currentLanguage = localStorage.getItem('language') || 'ru-RU';
 
 // 获取翻译文本
 export function t(key, params = {}) {
@@ -3666,11 +3666,11 @@ function updateDashboardImages(lang) {
             sponsorImg.alt = '赞助二维码';
             if (sponsorTitle) {
                 sponsorTitle.setAttribute('data-i18n', 'dashboard.contact.sponsor');
-                sponsorTitle.textContent = translations['zh-CN']['dashboard.contact.sponsor'];
+                sponsorTitle.textContent = (translations[lang] || translations['zh-CN'])['dashboard.contact.sponsor'];
             }
             if (sponsorDesc) {
                 sponsorDesc.setAttribute('data-i18n', 'dashboard.contact.sponsorDesc');
-                sponsorDesc.textContent = translations['zh-CN']['dashboard.contact.sponsorDesc'];
+                sponsorDesc.textContent = (translations[lang] || translations['zh-CN'])['dashboard.contact.sponsorDesc'];
             }
         }
 
@@ -3683,11 +3683,11 @@ function updateDashboardImages(lang) {
             }
             if (wechatTitle) {
                 wechatTitle.setAttribute('data-i18n', 'dashboard.contact.wechat');
-                wechatTitle.textContent = translations['zh-CN']['dashboard.contact.wechat'];
+                wechatTitle.textContent = (translations[lang] || translations['zh-CN'])['dashboard.contact.wechat'];
             }
             if (wechatDesc) {
                 wechatDesc.setAttribute('data-i18n', 'dashboard.contact.wechatDesc');
-                wechatDesc.textContent = translations['zh-CN']['dashboard.contact.wechatDesc'];
+                wechatDesc.textContent = (translations[lang] || translations['zh-CN'])['dashboard.contact.wechatDesc'];
             }
         }
     }

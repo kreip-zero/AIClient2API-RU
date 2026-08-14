@@ -10,9 +10,13 @@ export function createLanguageSwitcher() {
     switcher.innerHTML = `
         <button class="language-btn" id="languageBtn" aria-label="切换语言">
             <i class="fas fa-globe"></i>
-            <span class="current-lang">${currentLang === 'zh-CN' ? '中文' : currentLang === 'ru-RU' ? 'RU' : 'EN'}</span>
+            <span class="current-lang">${currentLang === 'zh-CN' ? '中文' : (currentLang === 'ru-RU' ? 'RU' : 'EN')}</span>
         </button>
         <div class="language-dropdown" id="languageDropdown">
+            <button class="language-option ${currentLang === 'ru-RU' ? 'active' : ''}" data-lang="ru-RU">
+                <i class="fas fa-check"></i>
+                <span>Русский</span>
+            </button>
             <button class="language-option ${currentLang === 'zh-CN' ? 'active' : ''}" data-lang="zh-CN">
                 <i class="fas fa-check"></i>
                 <span>简体中文</span>
@@ -20,10 +24,6 @@ export function createLanguageSwitcher() {
             <button class="language-option ${currentLang === 'en-US' ? 'active' : ''}" data-lang="en-US">
                 <i class="fas fa-check"></i>
                 <span>English</span>
-            </button>
-            <button class="language-option ${currentLang === 'ru-RU' ? 'active' : ''}" data-lang="ru-RU">
-                <i class="fas fa-check"></i>
-                <span>Русский</span>
             </button>
         </div>
     `;
@@ -71,7 +71,7 @@ function bindLanguageSwitcherEvents() {
             // 更新按钮文本
             const currentLangSpan = languageBtn.querySelector('.current-lang');
             if (currentLangSpan) {
-                currentLangSpan.textContent = lang === 'zh-CN' ? '中文' : lang === 'ru-RU' ? 'RU' : 'EN';
+                currentLangSpan.textContent = lang === 'zh-CN' ? '中文' : 'EN';
             }
             
             // 更新选中状态
@@ -82,10 +82,7 @@ function bindLanguageSwitcherEvents() {
             languageDropdown.classList.remove('show');
             
             // 显示提示
-            let toastMsg = 'Switched to English';
-            if (lang === 'zh-CN') toastMsg = '已切换到简体中文';
-            if (lang === 'ru-RU') toastMsg = 'Язык изменен на русский';
-            showToast(t('common.success'), toastMsg, 'success');
+            showToast(t('common.success'), lang === 'zh-CN' ? '已切换到简体中文' : 'Switched to English', 'success');
         });
     });
     

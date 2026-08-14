@@ -171,8 +171,6 @@ function formatUptime(seconds) {
     
     if (getCurrentLanguage() === 'en-US') {
         return `${days}d ${hours}h ${minutes}m ${secs}s`;
-    } else if (getCurrentLanguage() === 'ru-RU') {
-        return `${days}д ${hours}ч ${minutes}м ${secs}с`;
     }
     return `${days}天 ${hours}小时 ${minutes}分 ${secs}秒`;
 }
