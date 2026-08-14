@@ -169,8 +169,12 @@ function formatUptime(seconds) {
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = Math.floor(seconds % 60);
     
-    if (getCurrentLanguage() === 'en-US') {
+    const lang = getCurrentLanguage();
+    if (lang === 'en-US') {
         return `${days}d ${hours}h ${minutes}m ${secs}s`;
+    }
+    if (lang === 'ru-RU') {
+        return `${days}д ${hours}ч ${minutes}м ${secs}с`;
     }
     return `${days}天 ${hours}小时 ${minutes}分 ${secs}秒`;
 }
