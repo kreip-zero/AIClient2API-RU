@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#059669">
-  <title>模型用量统计</title>
+  <title>Статистика использования моделей</title>
   <link rel="stylesheet" href="app/base.css">
   <link rel="stylesheet" href="app/mobile.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -811,63 +811,63 @@
       <div class="brand">
         <span class="brand-icon"><i class="fas fa-chart-line"></i></span>
         <div>
-          <div class="brand-title">模型用量统计</div>
-          <div class="brand-sub">统一查看 Provider / Model 的请求次数与 Token 累计</div>
+          <div class="brand-title">Статистика использования моделей</div>
+          <div class="brand-sub">Число запросов и токенов по провайдерам и моделям в одном месте</div>
         </div>
       </div>
       <div class="nav-actions">
-        <a class="nav-btn" href="/"><i class="fas fa-arrow-left"></i><span>返回控制台</span></a>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></button>
+        <a class="nav-btn" href="/"><i class="fas fa-arrow-left"></i><span>Вернуться в панель</span></a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Сменить тему"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></button>
       </div>
     </div>
   </header>
   <main class="main">
     <section class="hero">
       <div class="panel hero-main">
-        <span class="eyebrow"><i class="fas fa-chart-pie"></i> 统计面板</span>
-        <h1>模型用量统计面板</h1>
-        <div class="copy">通过 <code>/api/model-usage-stats</code> 查看系统已累计的请求数、输入 Token、输出 Token 和 Provider / Model 维度分布。</div>
+        <span class="eyebrow"><i class="fas fa-chart-pie"></i> Статистика</span>
+        <h1>Панель статистики моделей</h1>
+        <div class="copy">Через <code>/api/model-usage-stats</code> можно посмотреть накопленное число запросов, входных и выходных токенов и их распределение по провайдерам и моделям.</div>
         <div class="meta">
-          <span class="tag"><i class="fas fa-key"></i> 支持后台 Token 与 API Key</span>
-          <span class="tag"><i class="fas fa-database"></i> 基于插件持久化统计</span>
-          <span class="tag"><i class="fas fa-filter"></i> 支持搜索、排序、刷新与重置</span>
+          <span class="tag"><i class="fas fa-key"></i> Вход по токену панели или API-ключу</span>
+          <span class="tag"><i class="fas fa-database"></i> Статистика хранится плагином</span>
+          <span class="tag"><i class="fas fa-filter"></i> Поиск, сортировка, обновление и сброс</span>
         </div>
       </div>
       <aside class="panel auth">
-        <div class="title"><h2 class="section-title" style="margin:0"><i class="fas fa-shield-halved"></i>访问凭证</h2><span class="pill idle" id="authBadge">未连接</span></div>
-        <div class="sub">与其他管理页面一致，这里不会自动读取服务端敏感配置。输入凭证后可加载统计接口，刷新后会从本地缓存恢复。</div>
+        <div class="title"><h2 class="section-title" style="margin:0"><i class="fas fa-shield-halved"></i>Данные для доступа</h2><span class="pill idle" id="authBadge">Не подключено</span></div>
+        <div class="sub">Как и другие страницы управления, эта страница не читает секретные настройки сервера сама. Введите данные для доступа, чтобы загрузить статистику; после обновления страницы они восстановятся из локального кэша.</div>
         <div class="group">
-          <label class="label" for="credentialValue">访问凭证</label>
-          <input class="input" id="credentialValue" type="password" placeholder="输入 Token 或 API Key">
-          <div class="help" id="credentialHelp">这里直接填后台登录 Token 或服务 API Key。页面会自动同时尝试 <code>Authorization: Bearer</code> 和 <code>x-api-key</code> 两种方式。</div>
+          <label class="label" for="credentialValue">Данные для доступа</label>
+          <input class="input" id="credentialValue" type="password" placeholder="Введите токен или API-ключ">
+          <div class="help" id="credentialHelp">Укажите токен входа в панель или API-ключ сервиса. Страница сама попробует оба способа: <code>Authorization: Bearer</code> и <code>x-api-key</code>.</div>
         </div>
         <div class="row">
-          <button class="btn btn-primary" id="connectBtn" type="button"><i class="fas fa-plug"></i><span>连接并加载</span></button>
-          <button class="btn btn-secondary" id="clearBtn" type="button"><i class="fas fa-eraser"></i><span>清空凭证</span></button>
+          <button class="btn btn-primary" id="connectBtn" type="button"><i class="fas fa-plug"></i><span>Подключиться и загрузить</span></button>
+          <button class="btn btn-secondary" id="clearBtn" type="button"><i class="fas fa-eraser"></i><span>Очистить</span></button>
         </div>
-        <div class="status info show" id="status"><i class="fas fa-circle-info"></i><span>尚未加载统计数据。</span></div>
+        <div class="status info show" id="status"><i class="fas fa-circle-info"></i><span>Статистика еще не загружена.</span></div>
       </aside>
     </section>
     <section class="stats">
       <article class="card green">
-        <div class="card-label">总请求数</div>
+        <div class="card-label">Всего запросов</div>
         <div class="card-value" id="totalRequests">0</div>
-        <div class="note">QPS: <span id="currentQps" style="font-weight:700;color:var(--primary-color)">0.00</span> (峰值: <span id="maxQps">0.00</span>) | RPM: <span id="currentRpm" style="font-weight:700;color:var(--primary-color)">0.00</span> (峰值: <span id="maxRpm">0.00</span>)</div>
+        <div class="note">QPS: <span id="currentQps" style="font-weight:700;color:var(--primary-color)">0.00</span> (Пик: <span id="maxQps">0.00</span>) | RPM: <span id="currentRpm" style="font-weight:700;color:var(--primary-color)">0.00</span> (Пик: <span id="maxRpm">0.00</span>)</div>
       </article>
-      <article class="card blue"><div class="card-label">输入 Token</div><div class="card-value" id="promptTokens">0</div><div class="note">输入 token 的累计值</div></article>
-      <article class="card cyan"><div class="card-label">缓存 Token</div><div class="card-value" id="cachedTokens">0</div><div class="note">缓存命中的累计值</div></article>
-      <article class="card indigo"><div class="card-label">输出 Token</div><div class="card-value" id="completionTokens">0</div><div class="note">输出 token 的累计值</div></article>
+      <article class="card blue"><div class="card-label">Входные токены</div><div class="card-value" id="promptTokens">0</div><div class="note">Всего входных токенов</div></article>
+      <article class="card cyan"><div class="card-label">Токены из кэша</div><div class="card-value" id="cachedTokens">0</div><div class="note">Всего попаданий в кэш</div></article>
+      <article class="card indigo"><div class="card-label">Выходные токены</div><div class="card-value" id="completionTokens">0</div><div class="note">Всего выходных токенов</div></article>
       <article class="card orange">
-        <div class="card-label">总 Token</div>
+        <div class="card-label">Всего токенов</div>
         <div class="card-value" id="totalTokens">0</div>
-        <div class="note">TPS: <span id="currentTps" style="font-weight:700;color:var(--primary-color)">0.00</span> (峰值: <span id="maxTps">0.00</span>) | <span id="updatedAt">等待数据</span></div>
+        <div class="note">TPS: <span id="currentTps" style="font-weight:700;color:var(--primary-color)">0.00</span> (Пик: <span id="maxTps">0.00</span>) | <span id="updatedAt">Ожидание данных</span></div>
       </article>
     </section>
     
     <section class="split">
       <div class="panel calendar-panel" style="margin-bottom: 0;">
         <div class="calendar-header">
-          <h2 class="section-title" style="margin:0; font-size: 16px;"><i class="fas fa-calendar-days"></i> Token 使用趋势 (3个月)</h2>
+          <h2 class="section-title" style="margin:0; font-size: 16px;"><i class="fas fa-calendar-days"></i> Расход токенов (за 3 месяца)</h2>
           <div class="calendar-legend" style="font-size: 10px;">
             <div class="level level-1"></div>
             <div class="level level-4"></div>
@@ -878,45 +878,45 @@
         </div>
         <div class="calendar-footer" id="calendarFooter" style="font-size: 11px; text-align: left; margin-top: 5px;"></div>
       </div>
-      <div class="panel"><h2 class="section-title" style="font-size: 16px;"><i class="fas fa-sitemap"></i>Provider 分布</h2><div class="bars" id="providerBars"></div></div>
+      <div class="panel"><h2 class="section-title" style="font-size: 16px;"><i class="fas fa-sitemap"></i>Распределение по провайдерам</h2><div class="bars" id="providerBars"></div></div>
       <div class="panel"><h2 class="section-title" style="font-size: 16px;"><i class="fas fa-fire"></i>Top Models</h2><div class="bars" id="topModelBars"></div></div>
     </section>
     <div id="usageTooltip" class="calendar-tooltip"></div>
     <section>
       <div class="tools">
-        <h2 class="section-title" style="margin:0"><i class="fas fa-layer-group"></i>Provider 视图</h2>
+        <h2 class="section-title" style="margin:0"><i class="fas fa-layer-group"></i>По провайдерам</h2>
         <div class="row">
-          <button class="btn btn-secondary" id="refreshBtn" type="button"><i class="fas fa-rotate-right"></i><span>刷新</span></button>
-          <button class="btn btn-secondary" id="resetTokensBtn" type="button"><i class="fas fa-eraser"></i><span>重置 Token</span></button>
-          <button class="btn btn-danger" id="resetBtn" type="button"><i class="fas fa-trash-can"></i><span>重置统计</span></button>
+          <button class="btn btn-secondary" id="refreshBtn" type="button"><i class="fas fa-rotate-right"></i><span>Обновить</span></button>
+          <button class="btn btn-secondary" id="resetTokensBtn" type="button"><i class="fas fa-eraser"></i><span>Сбросить токены</span></button>
+          <button class="btn btn-danger" id="resetBtn" type="button"><i class="fas fa-trash-can"></i><span>Сбросить статистику</span></button>
         </div>
       </div>
       <div class="providers" id="providerCards"></div>
     </section>
     <section class="table-card">
       <div class="tools">
-        <h2 class="section-title" style="margin:0"><i class="fas fa-table"></i>模型明细</h2>
+        <h2 class="section-title" style="margin:0"><i class="fas fa-table"></i>Статистика по моделям</h2>
         <div class="tool-row">
-          <input class="search" id="searchInput" type="search" placeholder="搜索 provider 或 model">
+          <input class="search" id="searchInput" type="search" placeholder="Поиск по провайдеру или модели">
           <select class="select" id="sortSelect">
-            <option value="totalTokens-desc">按总 Token 降序</option>
-            <option value="requestCount-desc">按请求数降序</option>
-            <option value="promptTokens-desc">按输入 Token 降序</option>
-            <option value="completionTokens-desc">按输出 Token 降序</option>
-            <option value="provider-asc">按 Provider 升序</option>
-            <option value="model-asc">按 Model 升序</option>
+            <option value="totalTokens-desc">По всем токенам ↓</option>
+            <option value="requestCount-desc">По запросам ↓</option>
+            <option value="promptTokens-desc">По входным токенам ↓</option>
+            <option value="completionTokens-desc">По выходным токенам ↓</option>
+            <option value="provider-asc">По провайдеру ↑</option>
+            <option value="model-asc">По модели ↑</option>
           </select>
         </div>
       </div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Provider</th><th>Model</th><th>请求数</th><th>Prompt</th><th>Cached</th><th>Completion</th><th>Total</th><th>最近使用</th></tr></thead>
+          <thead><tr><th>Provider</th><th>Model</th><th>Запросы</th><th>Prompt</th><th>Cached</th><th>Completion</th><th>Total</th><th>Последнее использование</th></tr></thead>
           <tbody id="tableBody"></tbody>
         </table>
       </div>
     </section>
     <section class="empty" id="emptyState"></section>
-    <p class="footer">如果上游响应没有提供 usage，调用次数仍会统计，但 token 数可能保持为 0。</p>
+    <p class="footer">Если ответ провайдера не содержит usage, запрос все равно будет учтен, но число токенов может остаться 0.</p>
   </main>
   <script type="module">
     import { initThemeSwitcher, setTheme, getCurrentTheme } from './app/theme-switcher.js';
@@ -929,7 +929,7 @@
     let rows = [];
 
     const el = id => document.getElementById(id),
-      fmt = v => new Intl.NumberFormat('zh-CN').format(Number(v || 0)),
+      fmt = v => new Intl.NumberFormat('ru-RU').format(Number(v || 0)),
       fmtToken = v => {
         const value = Number(v || 0);
         if (!Number.isFinite(value)) return '0';
@@ -955,16 +955,16 @@
       };
 
     function rel(iso) {
-      if (!iso) return '未记录';
+      if (!iso) return 'Нет данных';
       const d = new Date(iso);
       if (Number.isNaN(d.getTime())) return iso;
       const m = Math.floor((Date.now() - d.getTime()) / 6e4);
-      if (m < 1) return '刚刚';
-      if (m < 60) return `${m} 分钟前`;
+      if (m < 1) return 'только что';
+      if (m < 60) return `${m} мин назад`;
       const h = Math.floor(m / 60);
-      if (h < 24) return `${h} 小时前`;
+      if (h < 24) return `${h} ч назад`;
       const day = Math.floor(h / 24);
-      return day < 30 ? `${day} 天前` : d.toLocaleString('zh-CN')
+      return day < 30 ? `${day} дн. назад` : d.toLocaleString('ru-RU')
     }
 
     function status(msg, type = 'info') {
@@ -1001,13 +1001,13 @@
     function clearCredential() {
       localStorage.removeItem(STORAGE_KEY);
       el('credentialValue').value = '';
-      badge('未连接', false);
-      status('已清空本地保存的凭证。')
+      badge('Не подключено', false);
+      status('Сохраненные данные для доступа удалены.')
     }
 
     function headers() {
       const c = credential();
-      if (!c.value) throw new Error('请先输入访问凭证。');
+      if (!c.value) throw new Error('Сначала введите данные для доступа.');
       return {
         Authorization: `Bearer ${c.value}`,
         'x-api-key': c.value
@@ -1027,11 +1027,11 @@
       try {
         payload = text ? JSON.parse(text) : null
       } catch {
-        throw new Error(`接口返回了非 JSON 内容: ${text||'(empty)'}`)
+        throw new Error(`Сервер вернул ответ не в формате JSON: ${text||'(empty)'}`)
       }
       if (!res.ok) {
-        if (payload?.error?.code === 'PLUGIN_DISABLED') throw new Error('插件未启用：请先在插件管理中启用 model-usage-stats。');
-        throw new Error(payload?.error?.message || payload?.message || `请求失败 (${res.status})`)
+        if (payload?.error?.code === 'PLUGIN_DISABLED') throw new Error('Плагин не включен: сначала включите model-usage-stats в разделе «Плагины».');
+        throw new Error(payload?.error?.message || payload?.message || `Ошибка запроса (${res.status})`)
       }
       return payload
     }
@@ -1052,7 +1052,7 @@
       const box = el(id);
       box.innerHTML = '';
       if (!items.length) {
-        box.innerHTML = '<div class="mini-box"><div class="mini-label">暂无数据</div><div class="mini-value" style="font-size:14px">等待统计写入</div></div>';
+        box.innerHTML = '<div class="mini-box"><div class="mini-label">Нет данных</div><div class="mini-value" style="font-size:14px">Ожидание записи статистики</div></div>';
         return
       }
       const max = Math.max(...items.map(getValue), 1);
@@ -1080,7 +1080,7 @@
       el('maxRpm').textContent = (s.maxRpm || 0).toFixed(2);
       el('currentTps').textContent = (s.tps || 0).toFixed(2);
       el('maxTps').textContent = (s.maxTps || 0).toFixed(2);
-      el('updatedAt').textContent = data.updatedAt ? `更新于 ${new Date(data.updatedAt).toLocaleString('zh-CN')}` : '尚未写入'
+      el('updatedAt').textContent = data.updatedAt ? `Обновлено: ${new Date(data.updatedAt).toLocaleString('ru-RU')}` : 'Еще не записано'
     }
 
     function renderProviders(data) {
@@ -1092,14 +1092,14 @@
       const box = el('providerCards');
       box.innerHTML = '';
       if (!providers.length) {
-        box.innerHTML = '<div class="provider"><div class="provider-name">暂无 Provider 统计</div><div class="provider-sub">当前还没有可展示的累计数据。</div></div>';
+        box.innerHTML = '<div class="provider"><div class="provider-name">Нет статистики по провайдерам</div><div class="provider-sub">Пока нечего показать.</div></div>';
         return
       }
       providers.forEach(p => {
         const s = p.data.summary || {};
         const node = document.createElement('article');
         node.className = 'provider';
-        node.innerHTML = `<div class="provider-head"><div><div class="provider-name">${p.name}</div><div class="provider-sub">包含 ${fmt(p.count)} 个模型</div></div><span class="provider-badge"><i class="fas fa-bolt"></i>${fmt(s.requestCount)} 次调用</span></div><div class="mini"><div class="mini-box"><div class="mini-label">总 Token</div><div class="mini-value">${fmtToken(s.totalTokens)}</div></div><div class="mini-box"><div class="mini-label">输入</div><div class="mini-value">${fmtToken(s.promptTokens)}</div></div><div class="mini-box"><div class="mini-label">输出</div><div class="mini-value">${fmtToken(s.completionTokens)}</div></div><div class="mini-box"><div class="mini-label">QPS / RPM</div><div class="mini-value">${(s.qps || 0).toFixed(2)} / ${(s.rpm || 0).toFixed(2)}</div></div><div class="mini-box"><div class="mini-label">TPS</div><div class="mini-value">${(s.tps || 0).toFixed(2)}</div></div><div class="mini-box"><div class="mini-label">最近使用</div><div class="mini-value" style="font-size:14px">${rel(s.lastUsedAt)}</div></div></div>`;
+        node.innerHTML = `<div class="provider-head"><div><div class="provider-name">${p.name}</div><div class="provider-sub">Моделей: ${fmt(p.count)}</div></div><span class="provider-badge"><i class="fas fa-bolt"></i>${fmt(s.requestCount)} запр.</span></div><div class="mini"><div class="mini-box"><div class="mini-label">Всего токенов</div><div class="mini-value">${fmtToken(s.totalTokens)}</div></div><div class="mini-box"><div class="mini-label">Вход</div><div class="mini-value">${fmtToken(s.promptTokens)}</div></div><div class="mini-box"><div class="mini-label">Выход</div><div class="mini-value">${fmtToken(s.completionTokens)}</div></div><div class="mini-box"><div class="mini-label">QPS / RPM</div><div class="mini-value">${(s.qps || 0).toFixed(2)} / ${(s.rpm || 0).toFixed(2)}</div></div><div class="mini-box"><div class="mini-label">TPS</div><div class="mini-value">${(s.tps || 0).toFixed(2)}</div></div><div class="mini-box"><div class="mini-label">Последнее использование</div><div class="mini-value" style="font-size:14px">${rel(s.lastUsedAt)}</div></div></div>`;
         box.appendChild(node)
       })
     }
@@ -1126,7 +1126,7 @@
         list = filteredRows();
       tbody.innerHTML = '';
       if (!list.length) {
-        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text-tertiary)">没有匹配的数据</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text-tertiary)">Нет совпадений</td></tr>';
         return
       }
       list.forEach(r => {
@@ -1179,7 +1179,7 @@
         day.className = 'calendar-day';
         day.dataset.level = level;
 
-        const tipText = `${dateKey}: ${fmt(requests)} 次请求, ${fmtToken(tokens)} Token${data.maxQps ? `\n峰值: ${data.maxQps.toFixed(2)} QPS / ${data.maxRpm.toFixed(0)} RPM / ${data.maxTps.toFixed(2)} TPS` : ''}`;
+        const tipText = `${dateKey}: ${fmt(requests)} запр., ${fmtToken(tokens)} Token${data.maxQps ? `\nПик: ${data.maxQps.toFixed(2)} QPS / ${data.maxRpm.toFixed(0)} RPM / ${data.maxTps.toFixed(2)} TPS` : ''}`;
         day.onmouseenter = (e) => {
           tooltip.innerText = tipText;
           tooltip.style.display = 'block';
@@ -1193,7 +1193,7 @@
 
         grid.appendChild(day);
       }
-      el('calendarFooter').textContent = `最近三个月累计消耗: ${fmtToken(currentTotal)} Token`;
+      el('calendarFooter').textContent = `Расход за последние 3 месяца: ${fmtToken(currentTotal)} Token`;
     }
 
     function render(data) {
@@ -1208,7 +1208,7 @@
       if (providersRaw.length > 3) {
         const otherTokens = providersRaw.slice(3).reduce((sum, p) => sum + p.totalTokens, 0);
         providers.push({
-          name: `其它 (${providersRaw.length-3} 个)`,
+          name: `Прочие (${providersRaw.length-3})`,
           totalTokens: otherTokens,
           isOther: true
         })
@@ -1218,7 +1218,7 @@
       if (modelsRaw.length > 3) {
         const otherTokens = modelsRaw.slice(3).reduce((sum, m) => sum + (Number(m.totalTokens) || 0), 0);
         topModels.push({
-          name: `其它 (${modelsRaw.length-3} 个)`,
+          name: `Прочие (${modelsRaw.length-3})`,
           totalTokens: otherTokens,
           isOther: true
         })
@@ -1233,27 +1233,27 @@
     async function loadData() {
       try {
         saveCredential();
-        status('正在加载统计数据...');
+        status('Загрузка статистики...');
         const payload = await request(API_BASE);
         render(payload.data || payload);
-        badge('已连接', true);
-        status(`已加载 ${fmt(rows.length)} 条模型统计。`, 'success')
+        badge('Подключено', true);
+        status(`Загружено записей: ${fmt(rows.length)}.`, 'success')
       } catch (error) {
         console.error(error);
-        badge('连接失败', false);
+        badge('Ошибка подключения', false);
         status(error.message, 'error')
       }
     }
 
     async function resetData() {
-      if (!confirm('确认重置全部模型统计吗？此操作会清空已落库的累计数据。')) return;
+      if (!confirm('Сбросить всю статистику моделей? Сохраненные накопленные данные будут удалены.')) return;
       try {
-        status('正在重置统计数据...');
+        status('Сброс статистики...');
         const payload = await request(`${API_BASE}/reset`, {
           method: 'POST'
         });
         render(payload.data || payload);
-        status('统计数据已重置。', 'success')
+        status('Статистика сброшена.', 'success')
       } catch (error) {
         console.error(error);
         status(error.message, 'error')
@@ -1261,14 +1261,14 @@
     }
 
     async function resetTokenData() {
-      if (!confirm('确认重置模型 Token 统计吗？这会清空输入 / 输出 / 缓存 / 总 Token，但保留请求次数与最近使用时间。')) return;
+      if (!confirm('Сбросить статистику токенов моделей? Будут очищены входные, выходные, кэшированные и общие токены; число запросов и время последнего использования сохранятся.')) return;
       try {
-        status('正在重置 Token 统计...');
+        status('Сброс статистики токенов...');
         const payload = await request(`${API_BASE}/reset-tokens`, {
           method: 'POST'
         });
         render(payload.data || payload);
-        status('模型 Token 统计已重置。', 'success')
+        status('Статистика токенов моделей сброшена.', 'success')
       } catch (error) {
         console.error(error);
         status(error.message, 'error')

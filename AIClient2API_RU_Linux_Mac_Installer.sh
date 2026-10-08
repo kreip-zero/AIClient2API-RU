@@ -51,13 +51,38 @@ while [ -z "$TARGET_DIR" ]; do
     fi
 done
 
+# Русификатор заменяет файлы интерфейса целиком, поэтому версия программы должна совпадать
+SUPPORTED_VERSION="3.5.6"
+INSTALLED_VERSION=$(tr -d '[:space:]' < "$TARGET_DIR/VERSION" 2>/dev/null)
+if [ "$INSTALLED_VERSION" != "$SUPPORTED_VERSION" ]; then
+    echo ""
+    echo "[ВНИМАНИЕ] Русификатор рассчитан на AIClient2API v$SUPPORTED_VERSION, а у вас версия: ${INSTALLED_VERSION:-неизвестна}."
+    echo "Установка на другую версию может сломать панель управления."
+    echo "Подходящие версии русификатора: https://github.com/kreip-zero/AIClient2API-RU/tags"
+    read -p "Все равно установить? [y/N]: " force
+    if [[ $force != [yY] && $force != [yY][eE][sS] ]]; then
+        echo "Установка отменена."
+        exit 1
+    fi
+fi
+
+BACKUP_DIR="$TARGET_DIR/ru_backup_$(date +%Y%m%d_%H%M%S)"
 echo ""
+echo "[ИНФО] Резервная копия заменяемых файлов: $BACKUP_DIR"
+(cd src_files && find static -type f) | while read -r file; do
+    if [ -f "$TARGET_DIR/$file" ]; then
+        mkdir -p "$BACKUP_DIR/$(dirname "$file")"
+        cp "$TARGET_DIR/$file" "$BACKUP_DIR/$file"
+    fi
+done
+
 echo "[ИНФО] Копирование файлов в $TARGET_DIR..."
 cp -r src_files/* "$TARGET_DIR/"
 
 if [ $? -eq 0 ]; then
     echo "[УСПЕХ] Файлы успешно скопированы!"
     echo "Теперь перезагрузите страницу с AIClient2API в браузере (Ctrl+F5)."
+    echo "Вернуть исходные файлы можно из папки $BACKUP_DIR."
 else
     echo "[ОШИБКА] Не удалось скопировать файлы! Проверьте права доступа (может потребоваться sudo)."
 fi

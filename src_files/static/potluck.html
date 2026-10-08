@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#059669">
-    <title>API 大锅饭 - Key 管理</title>
+    <title>API Potluck — управление ключами</title>
     <link rel="stylesheet" href="app/base.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -192,7 +192,7 @@
         }
         .search-box::placeholder { color: var(--text-tertiary); }
 
-        /* Key 列表 */
+        /* Список ключей */
         .keys-section { margin-top: 10px; }
         .keys-header {
             display: flex;
@@ -428,7 +428,7 @@
             margin: 16px 0;
         }
 
-        /* 空状态 */
+        /* 空Статус */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
@@ -607,16 +607,16 @@
         <div class="navbar-inner">
             <div class="navbar-brand">
                 <span class="icon">🍲</span>
-                <span>API 大锅饭</span>
-                <span class="badge">管理端</span>
+                <span>API Potluck</span>
+                <span class="badge">Администратор</span>
             </div>
             <div class="navbar-actions" style="display: flex; align-items: center; gap: 12px;">
-                <button class="theme-toggle" id="themeToggle" title="切换主题">
+                <button class="theme-toggle" id="themeToggle" title="Сменить тему">
                     <i class="fas fa-sun"></i>
                     <i class="fas fa-moon"></i>
                 </button>
                 <button id="createKeyBtn" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> <span class="btn-text">生成新 Key</span>
+                    <i class="fas fa-plus"></i> <span class="btn-text">Создать ключ</span>
                 </button>
             </div>
         </div>
@@ -627,37 +627,37 @@
         <!-- 统计卡片 -->
         <div class="stats-grid">
             <div class="stat-card purple">
-                <div class="label">总 Key 数</div>
+                <div class="label">Всего ключей</div>
                 <div class="value" id="totalKeys">0</div>
             </div>
             <div class="stat-card green">
-                <div class="label">已启用</div>
+                <div class="label">Включено</div>
                 <div class="value" id="enabledKeys">0</div>
             </div>
             <div class="stat-card pink">
-                <div class="label">今日总调用</div>
+                <div class="label">Запросов сегодня</div>
                 <div class="value" id="todayUsage">0</div>
-                <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">QPS: <span id="currentQps" style="font-weight:700;color:var(--primary-color)">0.00</span> (峰值: <span id="maxQps">0.00</span>) | RPM: <span id="currentRpm" style="font-weight:700;color:var(--primary-color)">0.00</span> (峰值: <span id="maxRpm">0.00</span>)</div>
+                <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">QPS: <span id="currentQps" style="font-weight:700;color:var(--primary-color)">0.00</span> (Пик: <span id="maxQps">0.00</span>) | RPM: <span id="currentRpm" style="font-weight:700;color:var(--primary-color)">0.00</span> (Пик: <span id="maxRpm">0.00</span>)</div>
             </div>
             <div class="stat-card cyan">
-                <div class="label">累计调用</div>
+                <div class="label">Всего запросов</div>
                 <div class="value" id="totalUsage">0</div>
             </div>
             <div class="stat-card green">
-                <div class="label">今日总 Tokens</div>
+                <div class="label">Токенов сегодня</div>
                 <div class="value" id="todayTokens">0</div>
-                <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">TPS: <span id="currentTps" style="font-weight:700;color:var(--primary-color)">0.00</span> (峰值: <span id="maxTps">0.00</span>)</div>
+                <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">TPS: <span id="currentTps" style="font-weight:700;color:var(--primary-color)">0.00</span> (Пик: <span id="maxTps">0.00</span>)</div>
             </div>
             <div class="stat-card cyan">
-                <div class="label">今日缓存 Tokens</div>
+                <div class="label">Токенов из кэша сегодня</div>
                 <div class="value" id="todayCachedTokens">0</div>
             </div>
             <div class="stat-card pink">
-                <div class="label">累计 Tokens</div>
+                <div class="label">Всего токенов</div>
                 <div class="value" id="totalTokens">0</div>
             </div>
             <div class="stat-card cyan">
-                <div class="label">累计缓存 Tokens</div>
+                <div class="label">Всего токенов из кэша</div>
                 <div class="value" id="totalCachedTokens">0</div>
             </div>
         </div>
@@ -665,13 +665,13 @@
         <!-- 使用分布统计区域 -->
         <div id="usageStatsSection" style="margin-bottom: 2.5rem; display: none;">
             <div class="section-title">
-                <i class="fas fa-chart-pie"></i> 节点与 Token 使用统计 (最近 3 个月)
+                <i class="fas fa-chart-pie"></i> Статистика узлов и токенов (за 3 месяца)
             </div>
             <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-                <!-- Token 用量日历 -->
+                <!-- Календарь расхода токенов -->
                 <div class="stat-card" style="text-align: left; padding: 20px;">
                     <div class="label" style="margin-bottom: 10px; font-weight: 600; display: flex; justify-content: space-between;">
-                        <span>Token 用量日历</span>
+                        <span>Календарь расхода токенов</span>
                         <div class="calendar-legend" style="gap: 3px;">
                             <div class="level level-1" style="width:8px;height:8px"></div>
                             <div class="level level-4" style="width:8px;height:8px"></div>
@@ -686,8 +686,8 @@
                 <!-- 提供商分布 -->
                 <div class="stat-card" style="text-align: left; padding: 20px;">
                     <div class="label" style="margin-bottom: 15px; font-weight: 600; display: flex; justify-content: space-between;">
-                        <span>提供商占比 (Providers)</span>
-                        <span id="providerTotalCount" style="color: var(--primary-color);">0 次</span>
+                        <span>Доля провайдеров</span>
+                        <span id="providerTotalCount" style="color: var(--primary-color);">0 запр.</span>
                     </div>
                     <div id="providerDistribution" class="distribution-list">
                         <!-- 动态填充 -->
@@ -696,8 +696,8 @@
                 <!-- 模型分布 -->
                 <div class="stat-card" style="text-align: left; padding: 20px;">
                     <div class="label" style="margin-bottom: 15px; font-weight: 600; display: flex; justify-content: space-between;">
-                        <span>模型活跃度 (Models)</span>
-                        <span id="modelTotalCount" style="color: var(--primary-color);">0 次</span>
+                        <span>Активность моделей</span>
+                        <span id="modelTotalCount" style="color: var(--primary-color);">0 запр.</span>
                     </div>
                     <div id="modelDistribution" class="distribution-list">
                         <!-- 动态填充 -->
@@ -708,32 +708,32 @@
         <div id="usageTooltip" class="calendar-tooltip"></div>
 
 
-        <!-- Key 列表区域 -->
+        <!-- Список ключей区域 -->
 
         <div class="keys-section">
             <div class="keys-header">
-                <h2 class="section-title" style="margin-bottom: 0;"><i class="fas fa-key"></i> Key 列表</h2>
+                <h2 class="section-title" style="margin-bottom: 0;"><i class="fas fa-key"></i> Список ключей</h2>
                 <div class="toolbar">
                     <div class="search-wrapper">
-                        <input type="text" id="searchBox" class="search-box" placeholder="搜索名称或 Key...">
+                        <input type="text" id="searchBox" class="search-box" placeholder="Поиск по имени или ключу...">
                         <select id="sortSelect" class="sort-select">
-                            <option value="name-asc">名称 A-Z</option>
-                            <option value="name-desc">名称 Z-A</option>
-                            <option value="usage-desc">今日用量 ↓</option>
-                            <option value="usage-asc">今日用量 ↑</option>
-                            <option value="total-desc">累计用量 ↓</option>
-                            <option value="lastUsed-desc">最近使用 ↓</option>
-                            <option value="qps-desc">QPS 速率 ↓</option>
-                            <option value="rpm-desc">RPM 频率 ↓</option>
-                            <option value="created-desc">创建时间 ↓</option>
+                            <option value="name-asc">Имя А–Я</option>
+                            <option value="name-desc">Имя Я–А</option>
+                            <option value="usage-desc">Сегодня ↓</option>
+                            <option value="usage-asc">Сегодня ↑</option>
+                            <option value="total-desc">Всего ↓</option>
+                            <option value="lastUsed-desc">Последнее использование ↓</option>
+                            <option value="qps-desc">QPS ↓</option>
+                            <option value="rpm-desc">RPM ↓</option>
+                            <option value="created-desc">Дата создания ↓</option>
                         </select>
                     </div>
                     <div class="btn-limit-wrapper">
                         <button class="btn btn-secondary btn-sm" onclick="resetAllTokenStats()">
-                            <i class="fas fa-eraser"></i> <span class="btn-limit-text">重置全部 Token</span>
+                            <i class="fas fa-eraser"></i> <span class="btn-limit-text">Сбросить все токены</span>
                         </button>
                         <button class="btn btn-secondary btn-sm" onclick="showApplyLimitModal()">
-                            <i class="fas fa-cog"></i> <span class="btn-limit-text">批量应用限额</span>
+                            <i class="fas fa-cog"></i> <span class="btn-limit-text">Задать лимит всем</span>
                         </button>
                     </div>
                 </div>
@@ -746,20 +746,20 @@
     <div id="createModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
-                <h3><i class="fas fa-plus-circle"></i> 生成新 API Key</h3>
+                <h3><i class="fas fa-plus-circle"></i> Создать новый API-ключ</h3>
                 <button class="modal-close" onclick="closeModal('createModal')">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Key 名称 (可选)</label>
-                    <input type="text" id="keyName" placeholder="例如：测试用户 1">
+                    <label>Имя ключа (необязательно)</label>
+                    <input type="text" id="keyName" placeholder="Например: Тестовый пользователь 1">
                 </div>
                 <div class="form-group">
-                    <label>每日调用限额</label>
+                    <label>Дневной лимит запросов</label>
                     <input type="number" id="keyLimit" placeholder="500" min="1">
                 </div>
                 <button class="btn btn-primary btn-block" onclick="createKey()">
-                    <i class="fas fa-check"></i> 生成 Key
+                    <i class="fas fa-check"></i> Создать ключ
                 </button>
             </div>
         </div>
@@ -769,81 +769,81 @@
     <div id="showKeyModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
-                <h3><i class="fas fa-key"></i> Key 已生成</h3>
+                <h3><i class="fas fa-key"></i> Ключ создан</h3>
                 <button class="modal-close" onclick="closeModal('showKeyModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <p style="color:var(--text-secondary);margin-bottom:10px">请妥善保存此 Key，关闭后将无法再次查看完整内容：</p>
+                <p style="color:var(--text-secondary);margin-bottom:10px">Сохраните этот ключ: после закрытия окна полностью посмотреть его будет нельзя:</p>
                 <div class="key-display" id="newKeyDisplay"></div>
                 <button class="btn btn-secondary btn-block" onclick="copyKey()">
-                    <i class="fas fa-copy"></i> 复制 Key
+                    <i class="fas fa-copy"></i> Скопировать ключ
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- 修改限额模态框 -->
+    <!-- Изменить лимит模态框 -->
     <div id="editLimitModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
-                <h3><i class="fas fa-sliders-h"></i> 修改每日限额</h3>
+                <h3><i class="fas fa-sliders-h"></i> Изменить дневной лимит</h3>
                 <button class="modal-close" onclick="closeModal('editLimitModal')">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>新的每日限额</label>
+                    <label>Новый дневной лимит</label>
                     <input type="number" id="newLimit" min="1">
                 </div>
                 <input type="hidden" id="editKeyId">
                 <button class="btn btn-primary btn-block" onclick="updateLimit()">
-                    <i class="fas fa-save"></i> 保存
+                    <i class="fas fa-save"></i> Сохранить
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- 修改名称模态框 -->
+    <!-- Переименовать模态框 -->
     <div id="editNameModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
-                <h3><i class="fas fa-edit"></i> 修改 Key 名称</h3>
+                <h3><i class="fas fa-edit"></i> Переименовать ключ</h3>
                 <button class="modal-close" onclick="closeModal('editNameModal')">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>新的名称</label>
-                    <input type="text" id="newName" placeholder="例如：测试用户 1">
+                    <label>Новое имя</label>
+                    <input type="text" id="newName" placeholder="Например: Тестовый пользователь 1">
                 </div>
                 <input type="hidden" id="editNameKeyId">
                 <button class="btn btn-primary btn-block" onclick="updateName()">
-                    <i class="fas fa-save"></i> 保存
+                    <i class="fas fa-save"></i> Сохранить
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- 批量应用限额模态框 -->
+    <!-- Задать лимит всем模态框 -->
     <div id="applyLimitModal" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
-                <h3><i class="fas fa-cog"></i> 批量应用每日限额</h3>
+                <h3><i class="fas fa-cog"></i> Задать дневной лимит всем ключам</h3>
                 <button class="modal-close" onclick="closeModal('applyLimitModal')">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>每日调用限额</label>
+                    <label>Дневной лимит запросов</label>
                     <input type="number" id="applyLimitValue" placeholder="500" min="1">
                 </div>
                 <div style="background: var(--danger-bg); border: 1px solid var(--danger-border); border-radius: var(--radius-lg); padding: 12px; margin-top: 12px;">
-                    <p style="color: var(--danger-text); font-size: 13px; margin: 0;"><i class="fas fa-exclamation-triangle"></i> 风险提示：</p>
+                    <p style="color: var(--danger-text); font-size: 13px; margin: 0;"><i class="fas fa-exclamation-triangle"></i> Внимание:</p>
                     <ul style="color: var(--danger-text); font-size: 12px; margin: 8px 0 0 16px; padding: 0;">
-                        <li>所有 Key 的每日限额将被覆盖</li>
-                        <li>已单独设置限额的 Key 也会被修改</li>
-                        <li>此操作不可撤销</li>
+                        <li>Дневной лимит всех ключей будет перезаписан</li>
+                        <li>Ключи с индивидуальным лимитом тоже изменятся</li>
+                        <li>Это действие нельзя отменить</li>
                     </ul>
                 </div>
                 <button class="btn btn-primary btn-block" style="margin-top: 16px;" onclick="applyDailyLimitToAll()">
-                    <i class="fas fa-check"></i> 应用限额
+                    <i class="fas fa-check"></i> Применить лимит
                 </button>
             </div>
         </div>
@@ -856,7 +856,7 @@
         const API_BASE = '/api/potluck';
 
         function getToken() { return localStorage.getItem('authToken'); }
-        function formatNumber(num) { return new Intl.NumberFormat('zh-CN').format(Number(num || 0)); }
+        function formatNumber(num) { return new Intl.NumberFormat('ru-RU').format(Number(num || 0)); }
         function formatTokenCompact(num) {
             const value = Number(num || 0);
             if (!Number.isFinite(value)) return '0';
@@ -890,7 +890,7 @@
 
         async function loadData() {
             const result = await apiRequest(`${API_BASE}/keys`);
-            if (!result || !result.success) { showToast('加载失败', 'error'); return; }
+            if (!result || !result.success) { showToast('Ошибка загрузки', 'error'); return; }
             const { keys, stats } = result.data;
             document.getElementById('totalKeys').textContent = stats.totalKeys;
             document.getElementById('enabledKeys').textContent = stats.enabledKeys;
@@ -924,7 +924,7 @@
             startDate.setMonth(now.getMonth() - 3);
             startDate.setDate(startDate.getDate() - startDate.getDay());
             
-            // 提取每日总 Token 和请求数
+            // 提取每日Всего токенов 和Запросы
             const dailyData = {};
             Object.entries(usageHistory).forEach(([date, data]) => {
                 dailyData[date] = {
@@ -967,7 +967,7 @@
                 day.className = 'calendar-day';
                 day.dataset.level = level;
                 
-                const tipText = `${dateKey}: ${formatNumber(requests)} 次请求, ${formatTokenCompact(tokens)} Tokens${entry.maxQps ? `\n峰值: ${entry.maxQps.toFixed(2)} QPS / ${entry.maxRpm.toFixed(0)} RPM / ${entry.maxTps.toFixed(2)} TPS` : ''}`;
+                const tipText = `${dateKey}: ${formatNumber(requests)} запр., ${formatTokenCompact(tokens)} Tokens${entry.maxQps ? `\nПик: ${entry.maxQps.toFixed(2)} QPS / ${entry.maxRpm.toFixed(0)} RPM / ${entry.maxTps.toFixed(2)} TPS` : ''}`;
                 day.onmouseenter = (e) => {
                     tooltip.innerText = tipText;
                     tooltip.style.display = 'block';
@@ -979,7 +979,7 @@
                 
                 grid.appendChild(day);
             }
-            document.getElementById('calendarFooter').textContent = `最近三个月累计消耗: ${formatTokenCompact(currentTotal)} Tokens`;
+            document.getElementById('calendarFooter').textContent = `Расход за последние 3 месяца: ${formatTokenCompact(currentTotal)} Tokens`;
         }
 
         /**
@@ -1021,11 +1021,11 @@
 
             // 渲染提供商分布
             renderDistribution('providerDistribution', aggregatedProviders, totalCalls);
-            document.getElementById('providerTotalCount').textContent = `${formatNumber(totalCalls)} 次 / ${formatTokenCompact(totalTokens)} Tokens`;
+            document.getElementById('providerTotalCount').textContent = `${formatNumber(totalCalls)} запр. / ${formatTokenCompact(totalTokens)} Tokens`;
 
             // 渲染模型分布 (模型总数与提供商总数一致)
             renderDistribution('modelDistribution', aggregatedModels, totalCalls);
-            document.getElementById('modelTotalCount').textContent = `${formatNumber(totalCalls)} 次`;
+            document.getElementById('modelTotalCount').textContent = `${formatNumber(totalCalls)} запр.`;
         }
 
         function renderDistribution(elementId, data, total) {
@@ -1041,7 +1041,7 @@
                     <div class="distribution-item">
                         <div class="dist-info">
                             <span class="dist-name">${escapeHtml(name)}</span>
-                            <span class="dist-count">${formatNumber(count)} 次 (${percent}%)</span>
+                            <span class="dist-count">${formatNumber(count)} запр. (${percent}%)</span>
                         </div>
                         <div class="dist-bar">
                             <div class="dist-fill" style="width: ${percent}%"></div>
@@ -1056,8 +1056,8 @@
                 container.innerHTML += `
                     <div class="distribution-item">
                         <div class="dist-info">
-                            <span class="dist-name" style="font-style: italic;">其他 (${sorted.length - 3} 个)</span>
-                            <span class="dist-count">${formatNumber(otherCount)} 次 (${otherPercent}%)</span>
+                            <span class="dist-name" style="font-style: italic;">Прочие (${sorted.length - 3})</span>
+                            <span class="dist-count">${formatNumber(otherCount)} запр. (${otherPercent}%)</span>
                         </div>
                         <div class="dist-bar">
                             <div class="dist-fill" style="width: ${otherPercent}%; background: #94a3b8;"></div>
@@ -1068,21 +1068,21 @@
         }
 
 
-        // 显示批量应用限额模态框
+        // 显示Задать лимит всем模态框
         function showApplyLimitModal() {
             document.getElementById('applyLimitValue').value = systemConfig.defaultDailyLimit || 500;
             openModal('applyLimitModal');
         }
 
-        // 批量应用每日限额
+        // Задать дневной лимит всем ключам
         async function applyDailyLimitToAll() {
             const dailyLimit = parseInt(document.getElementById('applyLimitValue').value);
             if (!dailyLimit || dailyLimit < 1) {
-                showToast('请输入有效的限额', 'error');
+                showToast('Введите корректный лимит', 'error');
                 return;
             }
             
-            showToast('正在应用限额...', 'success');
+            showToast('Применение лимита...', 'success');
             const result = await apiRequest(`${API_BASE}/keys/apply-limit`, { 
                 method: 'POST', 
                 body: JSON.stringify({ dailyLimit }) 
@@ -1092,7 +1092,7 @@
                 closeModal('applyLimitModal');
                 loadData();
             } else {
-                showToast(result?.error?.message || '操作失败', 'error');
+                showToast(result?.error?.message || 'Операция не выполнена', 'error');
             }
         }
 
@@ -1121,15 +1121,15 @@
         }
 
         function formatTime(isoStr) {
-            if (!isoStr) return '从未';
+            if (!isoStr) return 'Никогда';
             const d = new Date(isoStr);
             const now = new Date();
             const diff = now - d;
-            if (diff < 60000) return '刚刚';
-            if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前';
-            if (diff < 86400000) return Math.floor(diff / 3600000) + '小时前';
-            if (diff < 604800000) return Math.floor(diff / 86400000) + '天前';
-            return d.toLocaleString('zh-CN', {
+            if (diff < 60000) return 'только что';
+            if (diff < 3600000) return Math.floor(diff / 60000) + ' мин назад';
+            if (diff < 86400000) return Math.floor(diff / 3600000) + ' ч назад';
+            if (diff < 604800000) return Math.floor(diff / 86400000) + ' дн. назад';
+            return d.toLocaleString('ru-RU', {
                 year: 'numeric',
                 month: '2-digit',
                 day: '2-digit',
@@ -1141,11 +1141,11 @@
         function renderKeys(keys) {
             const container = document.getElementById('keysList');
             if (allKeys.length === 0) {
-                container.innerHTML = '<div class="empty-state"><div class="icon"><i class="fas fa-inbox"></i></div><p>还没有任何 API Key</p><button class="btn btn-primary btn-lg" onclick="openModal(\'createModal\')"><i class="fas fa-plus"></i> 生成第一个 Key</button></div>';
+                container.innerHTML = '<div class="empty-state"><div class="icon"><i class="fas fa-inbox"></i></div><p>API-ключей пока нет</p><button class="btn btn-primary btn-lg" onclick="openModal(\'createModal\')"><i class="fas fa-plus"></i> Создать первый ключ</button></div>';
                 return;
             }
             if (keys.length === 0) {
-                container.innerHTML = '<div class="no-results">没有匹配的结果</div>';
+                container.innerHTML = '<div class="no-results">Ничего не найдено</div>';
                 return;
             }
             container.innerHTML = keys.map(key => {
@@ -1174,48 +1174,48 @@
 
                 return `<div class="key-card ${key.enabled ? '' : 'disabled'}">
                     <div class="key-info">
-                        <div class="key-name">${escapeHtml(key.name)} <button class="btn-copy" style="margin-left: 4px; padding: 2px 6px;" onclick="openEditName('${key.id}', '${escapeHtml(key.name).replace(/'/g, "\\'")}')" title="修改名称"><i class="fas fa-edit"></i></button></div>
-                        <div class="key-id">${key.maskedKey} <button class="btn-copy" onclick="copyToClipboard('${key.id}')" title="复制完整 Key"><i class="fas fa-copy"></i></button></div>
+                        <div class="key-name">${escapeHtml(key.name)} <button class="btn-copy" style="margin-left: 4px; padding: 2px 6px;" onclick="openEditName('${key.id}', '${escapeHtml(key.name).replace(/'/g, "\\'")}')" title="Переименовать"><i class="fas fa-edit"></i></button></div>
+                        <div class="key-id">${key.maskedKey} <button class="btn-copy" onclick="copyToClipboard('${key.id}')" title="Скопировать ключ целиком"><i class="fas fa-copy"></i></button></div>
                         ${providerBadges ? `<div class="key-dist-mini">${providerBadges}</div>` : ''}
                     </div>
                     <div class="key-stats">
 
                         <div class="key-stat">
-                            <div class="label">今日/限额</div>
+                            <div class="label">Сегодня / лимит</div>
                             <div class="value ${valueClass}">${key.todayUsage}/${key.dailyLimit}</div>
-                            <div class="value muted">${formatTokenCompact(key.todayTotalTokens || 0)} Tokens ${key.todayCachedTokens ? `(含 ${formatTokenCompact(key.todayCachedTokens)} 缓存)` : ''}</div>
+                            <div class="value muted">${formatTokenCompact(key.todayTotalTokens || 0)} Tokens ${key.todayCachedTokens ? `(из них ${formatTokenCompact(key.todayCachedTokens)} из кэша)` : ''}</div>
                             <div class="progress-bar"><div class="fill ${progressClass}" style="width:${usagePercent}%"></div></div>
                         </div>
                         <div class="key-stat">
-                            <div class="label">累计数据</div>
-                            <div class="value">${key.totalUsage} 次请求</div>
-                            <div class="value muted">${formatTokenCompact(key.totalTokens || 0)} Tokens ${key.totalCachedTokens ? `(含 ${formatTokenCompact(key.totalCachedTokens)} 缓存)` : ''}</div>
+                            <div class="label">Всего</div>
+                            <div class="value">${key.totalUsage} запр.</div>
+                            <div class="value muted">${formatTokenCompact(key.totalTokens || 0)} Tokens ${key.totalCachedTokens ? `(из них ${formatTokenCompact(key.totalCachedTokens)} из кэша)` : ''}</div>
                         </div>
                         <div class="key-stat">
-                            <div class="label">请求频率</div>
+                            <div class="label">Частота запросов</div>
                             <div class="value">${(key.qps || 0).toFixed(2)} QPS / ${(key.rpm || 0).toFixed(0)} RPM</div>
-                            <div class="value muted">峰值: ${(key.maxQps || 0).toFixed(2)} QPS / ${(key.maxRpm || 0).toFixed(0)} RPM</div>
+                            <div class="value muted">Пик: ${(key.maxQps || 0).toFixed(2)} QPS / ${(key.maxRpm || 0).toFixed(0)} RPM</div>
                         </div>
                         <div class="key-stat">
-                            <div class="label">Token 速率</div>
+                            <div class="label">Скорость токенов</div>
                             <div class="value">${(key.tps || 0).toFixed(1)} TPS</div>
-                            <div class="value muted">峰值: ${(key.maxTps || 0).toFixed(1)} TPS</div>
+                            <div class="value muted">Пик: ${(key.maxTps || 0).toFixed(1)} TPS</div>
                         </div>
                         <div class="key-stat">
-                            <div class="label">最后调用</div>
+                            <div class="label">Последний запрос</div>
                             <div class="value muted">${formatTime(key.lastUsedAt)}</div>
                         </div>
                         <div class="key-stat">
-                            <div class="label">状态</div>
-                            <div class="value" style="color:${key.enabled ? 'var(--success-color)' : 'var(--danger-color)'}">${key.enabled ? '启用' : '禁用'}</div>
+                            <div class="label">Статус</div>
+                            <div class="value" style="color:${key.enabled ? 'var(--success-color)' : 'var(--danger-color)'}">${key.enabled ? 'Включен' : 'Отключен'}</div>
                         </div>
                     </div>
                     <div class="key-actions">
-                        <button class="btn btn-secondary btn-sm" onclick="resetUsage('${key.id}')" title="重置今日用量"><i class="fas fa-redo"></i> <span class="btn-text">重置</span></button>
-                        <button class="btn btn-secondary btn-sm" onclick="resetTokenStats('${key.id}')" title="重置 Token 统计"><i class="fas fa-eraser"></i> <span class="btn-text">Token</span></button>
-                        <button class="btn btn-secondary btn-sm" onclick="openEditLimit('${key.id}', ${key.dailyLimit})" title="修改限额"><i class="fas fa-sliders-h"></i> <span class="btn-text">限额</span></button>
-                        <button class="btn btn-secondary btn-sm" onclick="toggleKey('${key.id}')" title="${key.enabled ? '禁用' : '启用'}">${key.enabled ? '<i class="fas fa-toggle-on"></i>' : '<i class="fas fa-toggle-off"></i>'} <span class="btn-text">${key.enabled ? '禁用' : '启用'}</span></button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteKey('${key.id}')" title="删除"><i class="fas fa-trash"></i> <span class="btn-text">删除</span></button>
+                        <button class="btn btn-secondary btn-sm" onclick="resetUsage('${key.id}')" title="Сбросить использование за сегодня"><i class="fas fa-redo"></i> <span class="btn-text">Сбросить</span></button>
+                        <button class="btn btn-secondary btn-sm" onclick="resetTokenStats('${key.id}')" title="Сбросить статистику токенов"><i class="fas fa-eraser"></i> <span class="btn-text">Token</span></button>
+                        <button class="btn btn-secondary btn-sm" onclick="openEditLimit('${key.id}', ${key.dailyLimit})" title="Изменить лимит"><i class="fas fa-sliders-h"></i> <span class="btn-text">Лимит</span></button>
+                        <button class="btn btn-secondary btn-sm" onclick="toggleKey('${key.id}')" title="${key.enabled ? 'Отключить' : 'Включить'}">${key.enabled ? '<i class="fas fa-toggle-on"></i>' : '<i class="fas fa-toggle-off"></i>'} <span class="btn-text">${key.enabled ? 'Отключить' : 'Включить'}</span></button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteKey('${key.id}')" title="Удалить"><i class="fas fa-trash"></i> <span class="btn-text">Удалить</span></button>
                     </div>
                 </div>`;
             }).join('');
@@ -1234,7 +1234,7 @@
                 document.getElementById('keyName').value = '';
                 document.getElementById('keyLimit').value = '';
             } else {
-                showToast(result?.error?.message || '创建失败', 'error');
+                showToast(result?.error?.message || 'Не удалось создать', 'error');
             }
         }
 
@@ -1249,16 +1249,16 @@
             textArea.select();
             try {
                 document.execCommand('copy');
-                showToast('已复制到剪贴板', 'success');
+                showToast('Скопировано в буфер обмена', 'success');
             } catch (err) {
-                showToast('复制失败，请手动复制', 'error');
+                showToast('Не удалось скопировать, скопируйте вручную', 'error');
             }
             document.body.removeChild(textArea);
         }
 
         function copyKey() {
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(currentNewKey).then(() => showToast('已复制到剪贴板', 'success')).catch(() => copyToClipboardFallback(currentNewKey));
+                navigator.clipboard.writeText(currentNewKey).then(() => showToast('Скопировано в буфер обмена', 'success')).catch(() => copyToClipboardFallback(currentNewKey));
             } else {
                 copyToClipboardFallback(currentNewKey);
             }
@@ -1266,31 +1266,31 @@
 
         function copyToClipboard(text) {
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => showToast('Key 已复制', 'success')).catch(() => copyToClipboardFallback(text));
+                navigator.clipboard.writeText(text).then(() => showToast('Ключ скопирован', 'success')).catch(() => copyToClipboardFallback(text));
             } else {
                 copyToClipboardFallback(text);
             }
         }
 
         async function resetUsage(keyId) {
-            if (!confirm('确定要重置该 Key 的今日调用次数吗？')) return;
+            if (!confirm('Сбросить счетчик запросов этого ключа за сегодня?')) return;
             const result = await apiRequest(`${API_BASE}/keys/${encodeURIComponent(keyId)}/reset`, { method: 'POST' });
-            if (result && result.success) { showToast('已重置', 'success'); loadData(); }
-            else { showToast(result?.error?.message || '操作失败', 'error'); }
+            if (result && result.success) { showToast('Сброшено', 'success'); loadData(); }
+            else { showToast(result?.error?.message || 'Операция не выполнена', 'error'); }
         }
 
         async function resetTokenStats(keyId) {
-            if (!confirm('确定要重置该 Key 的 Token 统计吗？这会清空该 Key 的今日/累计 Token 与历史 Token 统计，但保留调用次数。')) return;
+            if (!confirm('Сбросить статистику токенов этого ключа? Будут очищены токены за сегодня, за все время и история; счетчики запросов сохранятся.')) return;
             const result = await apiRequest(`${API_BASE}/keys/${encodeURIComponent(keyId)}/reset-tokens`, { method: 'POST' });
-            if (result && result.success) { showToast('Token 统计已重置', 'success'); loadData(); }
-            else { showToast(result?.error?.message || '操作失败', 'error'); }
+            if (result && result.success) { showToast('Статистика токенов сброшена', 'success'); loadData(); }
+            else { showToast(result?.error?.message || 'Операция не выполнена', 'error'); }
         }
 
         async function resetAllTokenStats() {
-            if (!confirm('确定要重置全部 Key 的 Token 统计吗？这会清空所有 Key 的今日/累计 Token 与历史 Token 统计，但保留调用次数。')) return;
+            if (!confirm('Сбросить статистику токенов всех ключей? Будут очищены токены за сегодня, за все время и история; счетчики запросов сохранятся.')) return;
             const result = await apiRequest(`${API_BASE}/stats/reset-tokens`, { method: 'POST' });
-            if (result && result.success) { showToast('全部 Token 统计已重置', 'success'); loadData(); }
-            else { showToast(result?.error?.message || '操作失败', 'error'); }
+            if (result && result.success) { showToast('Статистика токенов всех ключей сброшена', 'success'); loadData(); }
+            else { showToast(result?.error?.message || 'Операция не выполнена', 'error'); }
         }
 
         function openEditLimit(keyId, currentLimit) {
@@ -1302,10 +1302,10 @@
         async function updateLimit() {
             const keyId = document.getElementById('editKeyId').value;
             const dailyLimit = parseInt(document.getElementById('newLimit').value);
-            if (!dailyLimit || dailyLimit < 1) { showToast('请输入有效的限额', 'error'); return; }
+            if (!dailyLimit || dailyLimit < 1) { showToast('Введите корректный лимит', 'error'); return; }
             const result = await apiRequest(`${API_BASE}/keys/${encodeURIComponent(keyId)}/limit`, { method: 'PUT', body: JSON.stringify({ dailyLimit }) });
-            if (result && result.success) { showToast('限额已更新', 'success'); closeModal('editLimitModal'); loadData(); }
-            else { showToast(result?.error?.message || '操作失败', 'error'); }
+            if (result && result.success) { showToast('Лимит обновлен', 'success'); closeModal('editLimitModal'); loadData(); }
+            else { showToast(result?.error?.message || 'Операция не выполнена', 'error'); }
         }
 
         function openEditName(keyId, currentName) {
@@ -1317,23 +1317,23 @@
         async function updateName() {
             const keyId = document.getElementById('editNameKeyId').value;
             const name = document.getElementById('newName').value;
-            if (!name) { showToast('请输入有效的名称', 'error'); return; }
+            if (!name) { showToast('Введите корректное имя', 'error'); return; }
             const result = await apiRequest(`${API_BASE}/keys/${encodeURIComponent(keyId)}/name`, { method: 'PUT', body: JSON.stringify({ name }) });
-            if (result && result.success) { showToast('名称已更新', 'success'); closeModal('editNameModal'); loadData(); }
-            else { showToast(result?.error?.message || '操作失败', 'error'); }
+            if (result && result.success) { showToast('Имя обновлено', 'success'); closeModal('editNameModal'); loadData(); }
+            else { showToast(result?.error?.message || 'Операция не выполнена', 'error'); }
         }
 
         async function toggleKey(keyId) {
             const result = await apiRequest(`${API_BASE}/keys/${encodeURIComponent(keyId)}/toggle`, { method: 'POST' });
             if (result && result.success) { showToast(result.message, 'success'); loadData(); }
-            else { showToast(result?.error?.message || '操作失败', 'error'); }
+            else { showToast(result?.error?.message || 'Операция не выполнена', 'error'); }
         }
 
         async function deleteKey(keyId) {
-            if (!confirm('确定要删除该 Key 吗？此操作不可恢复。')) return;
+            if (!confirm('Удалить этот ключ? Это действие нельзя отменить.')) return;
             const result = await apiRequest(`${API_BASE}/keys/${encodeURIComponent(keyId)}`, { method: 'DELETE' });
-            if (result && result.success) { showToast('已删除', 'success'); loadData(); }
-            else { showToast(result?.error?.message || '删除失败', 'error'); }
+            if (result && result.success) { showToast('Удалено', 'success'); loadData(); }
+            else { showToast(result?.error?.message || 'Ошибка удаления', 'error'); }
         }
 
         function openModal(id) { document.getElementById(id).classList.add('active'); }

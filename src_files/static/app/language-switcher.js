@@ -1,30 +1,35 @@
 // 语言切换器组件
 import { setLanguage, getCurrentLanguage, t } from './i18n.js';
 
+// 支持的语言：按钮上的短标签、下拉菜单中的名称、切换成功提示
+const LANGUAGES = {
+    'zh-CN': { label: '中文', name: '简体中文', switched: '已切换到简体中文' },
+    'en-US': { label: 'EN', name: 'English', switched: 'Switched to English' },
+    'ru-RU': { label: 'RU', name: 'Русский', switched: 'Язык переключен на русский' }
+};
+
+// 获取语言按钮上显示的短标签
+export function getLanguageLabel(lang) {
+    return (LANGUAGES[lang] || LANGUAGES['en-US']).label;
+}
+
 // 创建语言切换器 HTML
 export function createLanguageSwitcher() {
     const currentLang = getCurrentLanguage();
-    
+    const options = Object.entries(LANGUAGES).map(([lang, info]) => `
+            <button class="language-option ${currentLang === lang ? 'active' : ''}" data-lang="${lang}">
+                <i class="fas fa-check"></i>
+                <span>${info.name}</span>
+            </button>`).join('');
+
     const switcher = document.createElement('div');
     switcher.className = 'language-switcher';
     switcher.innerHTML = `
-        <button class="language-btn" id="languageBtn" aria-label="切换语言">
+        <button class="language-btn" id="languageBtn" aria-label="${t('common.switchLanguage')}" data-i18n-aria-label="common.switchLanguage">
             <i class="fas fa-globe"></i>
-            <span class="current-lang">${currentLang === 'zh-CN' ? '中文' : (currentLang === 'ru-RU' ? 'RU' : 'EN')}</span>
+            <span class="current-lang">${getLanguageLabel(currentLang)}</span>
         </button>
-        <div class="language-dropdown" id="languageDropdown">
-            <button class="language-option ${currentLang === 'ru-RU' ? 'active' : ''}" data-lang="ru-RU">
-                <i class="fas fa-check"></i>
-                <span>Русский</span>
-            </button>
-            <button class="language-option ${currentLang === 'zh-CN' ? 'active' : ''}" data-lang="zh-CN">
-                <i class="fas fa-check"></i>
-                <span>简体中文</span>
-            </button>
-            <button class="language-option ${currentLang === 'en-US' ? 'active' : ''}" data-lang="en-US">
-                <i class="fas fa-check"></i>
-                <span>English</span>
-            </button>
+        <div class="language-dropdown" id="languageDropdown">${options}
         </div>
     `;
     
@@ -71,7 +76,7 @@ function bindLanguageSwitcherEvents() {
             // 更新按钮文本
             const currentLangSpan = languageBtn.querySelector('.current-lang');
             if (currentLangSpan) {
-                currentLangSpan.textContent = lang === 'zh-CN' ? '中文' : 'EN';
+                currentLangSpan.textContent = getLanguageLabel(lang);
             }
             
             // 更新选中状态
@@ -82,7 +87,7 @@ function bindLanguageSwitcherEvents() {
             languageDropdown.classList.remove('show');
             
             // 显示提示
-            showToast(t('common.success'), lang === 'zh-CN' ? '已切换到简体中文' : 'Switched to English', 'success');
+            showToast(t('common.success'), (LANGUAGES[lang] || LANGUAGES['en-US']).switched, 'success');
         });
     });
     
@@ -105,5 +110,6 @@ function showToast(title, message, type = 'info') {
 
 export default {
     createLanguageSwitcher,
-    initLanguageSwitcher
+    initLanguageSwitcher,
+    getLanguageLabel
 };
