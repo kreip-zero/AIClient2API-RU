@@ -32,15 +32,6 @@ curl -sL -o ru_patch.zip "https://github.com/kreip-zero/AIClient2API-RU/archive/
 echo "[ИНФО] Распаковка..."
 unzip -q -o ru_patch.zip || { echo "[ОШИБКА] Не удалось распаковать архив (нужна утилита unzip)."; rm -f ru_patch.zip; exit 1; }
 
-BACKUP_DIR="ru_backup_$(date +%Y%m%d_%H%M%S)"
-echo "[ИНФО] Резервная копия заменяемых файлов: $BACKUP_DIR"
-(cd AIClient2API-RU-main/src_files && find static -type f) | while read -r file; do
-    if [ -f "$file" ]; then
-        mkdir -p "$BACKUP_DIR/$(dirname "$file")"
-        cp "$file" "$BACKUP_DIR/$file"
-    fi
-done
-
 echo "[ИНФО] Установка..."
 cp -r AIClient2API-RU-main/src_files/static/* ./static/
 
@@ -50,5 +41,4 @@ rm -rf AIClient2API-RU-main ru_patch.zip
 echo ""
 echo "[УСПЕХ] Русификатор успешно установлен!"
 echo "Теперь перезагрузите страницу с AIClient2API в браузере (Ctrl+F5)."
-echo "Вернуть исходные файлы можно из папки $BACKUP_DIR."
 echo "================================================="

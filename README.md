@@ -38,8 +38,6 @@ curl -sL https://raw.githubusercontent.com/kreip-zero/AIClient2API-RU/main/insta
 ```
 
 > [!IMPORTANT]  
-> Перед заменой установщик сохраняет исходные файлы в папку `ru_backup_<дата>` внутри папки программы, оттуда можно вернуть оригинал.
->
 > После успешной установки **обязательно** обновите страницу панели управления в браузере с полным сбросом кэша:
 > * Windows / Linux: `Ctrl + F5`
 > * macOS: `Cmd + Shift + R`

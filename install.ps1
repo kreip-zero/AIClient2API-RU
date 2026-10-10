@@ -35,16 +35,6 @@ try {
     Expand-Archive -Path "ru_patch.zip" -DestinationPath "ru_patch_temp" -Force
 
     $SourceRoot = (Resolve-Path "ru_patch_temp\AIClient2API-RU-main\src_files").Path
-    $BackupDir = "ru_backup_" + (Get-Date -Format "yyyyMMdd_HHmmss")
-    Write-Host "[ИНФО] Резервная копия заменяемых файлов: $BackupDir" -ForegroundColor Yellow
-    Get-ChildItem -Path "$SourceRoot\static" -Recurse -File | ForEach-Object {
-        $Relative = $_.FullName.Substring($SourceRoot.Length + 1)
-        if (Test-Path $Relative) {
-            $Target = Join-Path $BackupDir $Relative
-            New-Item -ItemType Directory -Force -Path (Split-Path $Target) | Out-Null
-            Copy-Item -Path $Relative -Destination $Target -Force
-        }
-    }
 
     Write-Host "[ИНФО] Установка..." -ForegroundColor Yellow
     Copy-Item -Path "$SourceRoot\static\*" -Destination "static" -Recurse -Force
@@ -62,5 +52,4 @@ finally {
 Write-Host ""
 Write-Host "[УСПЕХ] Русификатор успешно установлен!" -ForegroundColor Green
 Write-Host "Теперь перезагрузите страницу с AIClient2API в браузере (Ctrl+F5)." -ForegroundColor Green
-Write-Host "Вернуть исходные файлы можно из папки $BackupDir." -ForegroundColor Green
 Write-Host "=================================================" -ForegroundColor Cyan
