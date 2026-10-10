@@ -1,5 +1,6 @@
-# Версия AIClient2API, под которую собран русификатор
-$SupportedVersion = "3.5.6"
+# Версии AIClient2API, на которых русификатор проверен
+$SupportedVersions = @("3.5.6", "3.5.7")
+$SupportedShow = "v3.5.6, v3.5.7"
 
 Write-Host "=================================================" -ForegroundColor Cyan
 Write-Host "  Установка русской локализации AIClient2API" -ForegroundColor Cyan
@@ -15,11 +16,11 @@ if (-Not (Test-Path "static\app\i18n.js")) {
 # Русификатор заменяет файлы интерфейса целиком, поэтому версия программы должна совпадать
 $InstalledVersion = ""
 if (Test-Path "VERSION") { $InstalledVersion = (Get-Content "VERSION" -Raw).Trim() }
-if ($InstalledVersion -ne $SupportedVersion -and $env:RU_FORCE -ne "1") {
+if (($SupportedVersions -notcontains $InstalledVersion) -and $env:RU_FORCE -ne "1") {
     if (-Not $InstalledVersion) { $InstalledVersion = "неизвестна" }
-    Write-Host "[ОШИБКА] Русификатор рассчитан на AIClient2API v$SupportedVersion, а у вас версия: $InstalledVersion." -ForegroundColor Red
+    Write-Host "[ОШИБКА] Русификатор рассчитан на AIClient2API $SupportedShow, а у вас версия: $InstalledVersion." -ForegroundColor Red
     Write-Host "Установка на другую версию может сломать панель управления." -ForegroundColor Red
-    Write-Host "Обновите программу до v$SupportedVersion или найдите подходящую версию русификатора:" -ForegroundColor Yellow
+    Write-Host "Обновите программу до одной из этих версий или найдите подходящую версию русификатора:" -ForegroundColor Yellow
     Write-Host "  https://github.com/kreip-zero/AIClient2API-RU/tags" -ForegroundColor Yellow
     Write-Host "Установить все равно (на свой риск):" -ForegroundColor Yellow
     Write-Host '  $env:RU_FORCE="1"; irm https://raw.githubusercontent.com/kreip-zero/AIClient2API-RU/main/install.ps1 | iex' -ForegroundColor Yellow

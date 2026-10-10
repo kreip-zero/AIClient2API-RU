@@ -52,11 +52,12 @@ while [ -z "$TARGET_DIR" ]; do
 done
 
 # Русификатор заменяет файлы интерфейса целиком, поэтому версия программы должна совпадать
-SUPPORTED_VERSION="3.5.6"
+SUPPORTED_VERSIONS="3.5.6 3.5.7"
+SUPPORTED_SHOW="v3.5.6, v3.5.7"
 INSTALLED_VERSION=$(tr -d '[:space:]' < "$TARGET_DIR/VERSION" 2>/dev/null)
-if [ "$INSTALLED_VERSION" != "$SUPPORTED_VERSION" ]; then
+if [[ " $SUPPORTED_VERSIONS " != *" $INSTALLED_VERSION "* || -z "$INSTALLED_VERSION" ]]; then
     echo ""
-    echo "[ВНИМАНИЕ] Русификатор рассчитан на AIClient2API v$SUPPORTED_VERSION, а у вас версия: ${INSTALLED_VERSION:-неизвестна}."
+    echo "[ВНИМАНИЕ] Русификатор рассчитан на AIClient2API $SUPPORTED_SHOW, а у вас версия: ${INSTALLED_VERSION:-неизвестна}."
     echo "Установка на другую версию может сломать панель управления."
     echo "Подходящие версии русификатора: https://github.com/kreip-zero/AIClient2API-RU/tags"
     read -p "Все равно установить? [y/N]: " force

@@ -1,6 +1,7 @@
 #!/bin/bash
-# Версия AIClient2API, под которую собран русификатор
-SUPPORTED_VERSION="3.5.6"
+# Версии AIClient2API, на которых русификатор проверен
+SUPPORTED_VERSIONS="3.5.6 3.5.7"
+SUPPORTED_SHOW="v3.5.6, v3.5.7"
 
 echo "================================================="
 echo "  Установка русской локализации AIClient2API"
@@ -15,10 +16,10 @@ fi
 
 # Русификатор заменяет файлы интерфейса целиком, поэтому версия программы должна совпадать
 INSTALLED_VERSION=$(tr -d '[:space:]' < VERSION 2>/dev/null)
-if [ "$INSTALLED_VERSION" != "$SUPPORTED_VERSION" ] && [ "$RU_FORCE" != "1" ]; then
-    echo "[ОШИБКА] Русификатор рассчитан на AIClient2API v$SUPPORTED_VERSION, а у вас версия: ${INSTALLED_VERSION:-неизвестна}."
+if [[ " $SUPPORTED_VERSIONS " != *" $INSTALLED_VERSION "* || -z "$INSTALLED_VERSION" ]] && [ "$RU_FORCE" != "1" ]; then
+    echo "[ОШИБКА] Русификатор рассчитан на AIClient2API $SUPPORTED_SHOW, а у вас версия: ${INSTALLED_VERSION:-неизвестна}."
     echo "Установка на другую версию может сломать панель управления."
-    echo "Обновите программу до v$SUPPORTED_VERSION или найдите подходящую версию русификатора:"
+    echo "Обновите программу до одной из этих версий или найдите подходящую версию русификатора:"
     echo "  https://github.com/kreip-zero/AIClient2API-RU/tags"
     echo "Установить все равно (на свой риск):"
     echo "  curl -sL https://raw.githubusercontent.com/kreip-zero/AIClient2API-RU/main/install.sh | RU_FORCE=1 bash"

@@ -8,7 +8,7 @@
 
 <div align="center">
 
-[![Совместимость](https://img.shields.io/badge/AIClient2API-v3.5.6-brightgreen.svg)](https://github.com/justlovemaki/AIClient-2-API)
+[![Совместимость](https://img.shields.io/badge/AIClient2API-v3.5.6%20%7C%20v3.5.7-brightgreen.svg)](https://github.com/justlovemaki/AIClient-2-API)
 [![GitHub stars](https://img.shields.io/github/stars/kreip-zero/AIClient2API-RU.svg?style=flat&label=Star)](https://github.com/kreip-zero/AIClient2API-RU/stargazers)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
@@ -17,7 +17,7 @@
 ---
 
 > [!NOTE]  
-> **Совместимость версий**: текущая версия русификатора собрана и протестирована для **AIClient2API v3.5.6**.
+> **Совместимость версий**: текущая версия русификатора собрана и проверена на **AIClient2API v3.5.6 и v3.5.7**. В v3.5.7 файлы интерфейса не менялись, поэтому перевод для обеих версий одинаковый.
 >
 > Русификатор заменяет файлы интерфейса целиком, поэтому на другой версии программы он может сломать панель управления. Установщики проверяют версию (файл `VERSION` в папке программы) и не дадут поставить перевод на неподходящую версию. Перевод для старых версий (v3.3.8 – v3.4.0) доступен в теге [`for-aiclient-3.4.0`](https://github.com/kreip-zero/AIClient2API-RU/tree/for-aiclient-3.4.0).
 
