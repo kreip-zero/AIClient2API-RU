@@ -29,12 +29,12 @@
 
 ### Для Windows (PowerShell)
 ```powershell
-irm https://raw.githubusercontent.com/kreip-zero/AIClient2API-RU/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/kreip-zero/AIClient2API-RU/for-aiclient-3.5.7/install.ps1 | iex
 ```
 
 ### Для Linux / macOS (Terminal)
 ```bash
-curl -sL https://raw.githubusercontent.com/kreip-zero/AIClient2API-RU/main/install.sh | bash
+curl -sL https://raw.githubusercontent.com/kreip-zero/AIClient2API-RU/for-aiclient-3.5.7/install.sh | bash
 ```
 
 > [!IMPORTANT]  

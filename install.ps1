@@ -23,18 +23,18 @@ if (($SupportedVersions -notcontains $InstalledVersion) -and $env:RU_FORCE -ne "
     Write-Host "Обновите программу до одной из этих версий или найдите подходящую версию русификатора:" -ForegroundColor Yellow
     Write-Host "  https://github.com/kreip-zero/AIClient2API-RU/tags" -ForegroundColor Yellow
     Write-Host "Установить все равно (на свой риск):" -ForegroundColor Yellow
-    Write-Host '  $env:RU_FORCE="1"; irm https://raw.githubusercontent.com/kreip-zero/AIClient2API-RU/main/install.ps1 | iex' -ForegroundColor Yellow
+    Write-Host '  $env:RU_FORCE="1"; irm https://raw.githubusercontent.com/kreip-zero/AIClient2API-RU/for-aiclient-3.5.7/install.ps1 | iex' -ForegroundColor Yellow
     return
 }
 
 try {
     Write-Host "[ИНФО] Скачивание файлов перевода с GitHub..." -ForegroundColor Yellow
-    Invoke-WebRequest -Uri "https://github.com/kreip-zero/AIClient2API-RU/archive/refs/heads/main.zip" -OutFile "ru_patch.zip" -UseBasicParsing
+    Invoke-WebRequest -Uri "https://github.com/kreip-zero/AIClient2API-RU/archive/refs/tags/for-aiclient-3.5.7.zip" -OutFile "ru_patch.zip" -UseBasicParsing
 
     Write-Host "[ИНФО] Распаковка..." -ForegroundColor Yellow
     Expand-Archive -Path "ru_patch.zip" -DestinationPath "ru_patch_temp" -Force
 
-    $SourceRoot = (Resolve-Path "ru_patch_temp\AIClient2API-RU-main\src_files").Path
+    $SourceRoot = (Resolve-Path "ru_patch_temp\AIClient2API-RU-for-aiclient-3.5.7\src_files").Path
 
     Write-Host "[ИНФО] Установка..." -ForegroundColor Yellow
     Copy-Item -Path "$SourceRoot\static\*" -Destination "static" -Recurse -Force
