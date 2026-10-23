@@ -1,7 +1,7 @@
 #!/bin/bash
 # Версии AIClient2API, на которых русификатор проверен
-SUPPORTED_VERSIONS="3.5.6 3.5.7"
-SUPPORTED_SHOW="v3.5.6, v3.5.7"
+SUPPORTED_VERSIONS="3.6.2"
+SUPPORTED_SHOW="v3.6.2"
 
 echo "================================================="
 echo "  Установка русской локализации AIClient2API"

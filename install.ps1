@@ -1,6 +1,6 @@
 # Версии AIClient2API, на которых русификатор проверен
-$SupportedVersions = @("3.5.6", "3.5.7")
-$SupportedShow = "v3.5.6, v3.5.7"
+$SupportedVersions = @("3.6.2")
+$SupportedShow = "v3.6.2"
 
 Write-Host "=================================================" -ForegroundColor Cyan
 Write-Host "  Установка русской локализации AIClient2API" -ForegroundColor Cyan
